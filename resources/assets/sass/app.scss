@@ -1,9 +1,162 @@
 
 // Fonts
-@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+//@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
 
 // Variables
 @import "variables";
 
 // Bootstrap
-@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+//@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,300);
+
+html {
+  height: 100%
+}
+
+body {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  height: 100%;
+}
+
+input:focus {
+  outline: none;
+}
+
+.ctr {
+  display: block;
+  position: relative;
+  width: 450px;
+}
+
+.loader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255,255,255,.15);
+  width: 0%;
+  z-index: 99;
+  pointer-events: none;
+  -webkit-transition: 3s all ease;
+  transition: 3s all ease;
+}
+
+.loader.full {
+  width: 100%;
+}
+
+.loader.done {
+  background: #e74c3c;
+  -webkit-transition: .3s all ease;
+  transition: .3s all ease;
+  height: 0;
+}
+
+input {
+  line-height: 80px;
+  width: 100%;
+  font-size: 24px;
+  padding: 0 20px;
+  border: none;
+  cursor: pointer;
+  color: blue;
+  position: relative;
+  z-index: 10;
+  background: transparent;
+  color: transparent;
+  font-weight: 300;
+  -webkit-transition: .3s all ease;
+  transition: .3s all ease;
+  font-family: 'Roboto', sans-serif;
+}
+
+input.full {
+  pointer-events: none !important;
+  width: 0%;
+}
+
+.indicator {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  height: 5px;
+  background: #e74c3c;
+  -webkit-transition: .3s all ease;
+  transition: .3s all ease;
+  z-index: 9;
+  font-family: 'Roboto', sans-serif;
+}
+
+.indicator:after {
+  content: attr(data-content);
+  position: absolute;
+  top: -50px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  color: #777;
+  -webkit-transition: inherit;
+  transition: inherit;
+  font-size: 24px;
+  z-index: 999;
+  text-align: left;
+  font-weight: 300;
+}
+
+input:focus {
+  color: white;
+}
+
+input:focus + .indicator {
+  height: 100%
+}
+
+input.full:focus + .indicator {
+  height: 5px;
+  color: #e74c3c;
+}
+
+input:focus + .indicator:after {
+  color: #e74c3c;
+}
+.copyright {
+  position: fixed;
+  right: 15px;
+  bottom: 15px;
+  font-family: "Roboto";
+}
+.copyright span {
+  line-height: 36px;
+  color: #999;
+  margin-right: 10px;
+  font-weight: 300;
+}
+.copyright span a {
+  font-weight: 400;
+  text-decoration: none;
+  color: #ea4c89;
+}
+.copyright .balapa {
+  width: 30px;
+  height: 30px;
+  display: block;
+  background: url("http://s3-us-west-2.amazonaws.com/s.cdpn.io/111167/profile/profile-512_4.jpg");
+  background-size: cover;
+  border-radius: 50%;
+  border: 5px solid rgba(255, 255, 255, 0.75);
+  float: right;
+}

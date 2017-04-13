@@ -19,4 +19,18 @@ require('./bootstrap');
 //     el: '#app'
 // });
 
-$(document.body).addClass("bg-info");
+$(function() {
+   let form = $('[data-form]');
+
+   $(form).on('submit', function(e) {
+      e.preventDefault();
+       $.ajax({
+           method: "POST",
+           url: "/api/" + companyId + "/" + uri,
+       }).done(function(result) {
+
+       }).fail(function() {
+
+       });
+   });
+});

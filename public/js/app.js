@@ -949,16 +949,31 @@ __webpack_require__(28);
 //     el: '#app'
 // });
 
-$(function () {
-  var form = $('[data-form]');
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
 
-  $(form).on('submit', function (e) {
-    e.preventDefault();
-    $.ajax({
-      method: "POST",
-      url: "/api/" + companyId + "/" + uri
-    }).done(function (result) {}).fail(function () {});
-  });
+$(function () {
+    var $form = $('[data-form]');
+    var $dataContent = $('[data-content]');
+    var $input = $('[data-copy]');
+
+    $($form).on('submit', function (e) {
+        e.preventDefault();
+        $.ajax({
+            method: 'POST',
+            data: $(this).serialize(),
+            url: '/generate'
+        }).done(function (result) {
+            $dataContent.attr('data-content', 'Ссылка преобразована');
+            $input.val(document.location.hostname + '/' + result);
+        }).fail(function (error) {
+            var errorText = JSON.parse(error.responseText).url;
+            $dataContent.attr('data-content', errorText);
+        });
+    });
 });
 
 /***/ }),

@@ -14,3 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::post('/generate', 'UrlController@hash');
+Route::get('{short}', 'UrlController@redirect')
+    ->where('short', '[A-Za-z0-9]{4,6}+');

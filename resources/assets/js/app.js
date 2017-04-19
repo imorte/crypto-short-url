@@ -19,18 +19,29 @@ require('./bootstrap');
 //     el: '#app'
 // });
 
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+
 $(function() {
-   let form = $('[data-form]');
+    const $form = $('[data-form]');
+    const $dataContent = $('[data-content]');
+    const $input = $('[data-copy]');
 
-   $(form).on('submit', function(e) {
-      e.preventDefault();
+    $($form).on('submit', function(e) {
+       e.preventDefault();
        $.ajax({
-           method: "POST",
-           url: "/api/" + companyId + "/" + uri,
+           method: 'POST',
+           data: $(this).serialize(),
+           url: '/generate'
        }).done(function(result) {
-
-       }).fail(function() {
-
+           $dataContent.attr('data-content', 'Ссылка преобразована');
+           $input.val(document.location.hostname + '/' + result);
+       }).fail(function(error) {
+           let errorText = JSON.parse(error.responseText).url;
+           $dataContent.attr('data-content', errorText);
        });
-   });
+    });
 });

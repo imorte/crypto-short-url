@@ -17,6 +17,7 @@
 </head>
 <body>
 @yield('content')
+<script src="https://cdn.jsdelivr.net/clipboard.js/1.6.0/clipboard.min.js"></script>
 <script src="{{ asset('/js/app.js') }}"></script>
 </body>
 </html>

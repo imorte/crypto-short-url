@@ -968,7 +968,7 @@ $(function () {
             url: '/generate'
         }).done(function (result) {
             $dataContent.attr('data-content', 'Ссылка преобразована');
-            $input.val(document.location.hostname + '/' + result);
+            $input.val(document.location.hostname + '/' + JSON.parse(result).result);
         }).fail(function (error) {
             var errorText = JSON.parse(error.responseText).url;
             $dataContent.attr('data-content', errorText);

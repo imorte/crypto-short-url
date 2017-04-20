@@ -20,12 +20,11 @@ class UrlController extends Controller
     public function hash(UrlRequest $request)
     {
         $input = $request->all();
-        $url = $input['url'];
 
         $id = Url::create($input)->id;
         $shortLink = (new Hash())->hash($id);
 
-        return $shortLink;
+        return collect(['result' => $shortLink])->toJson();
     }
 
     /**

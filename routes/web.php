@@ -16,6 +16,5 @@ Route::get('/', function () {
 });
 
 Route::post('/generate', 'UrlController@hash');
-Route::get('{short}', 'UrlController@redirect')
-    ->where('short', '[A-Za-z0-9]{4,6}+')
-    ->middleware('premium');
+Route::get('{short}', 'UrlController@action')
+    ->where('short', '[A-Za-z0-9]{4,6}+');

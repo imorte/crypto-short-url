@@ -11,6 +11,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        $faker = Faker\Factory::create();
+
+        for($i = 0; $i < 10; $i++) {
+            DB::table('premium_urls')->insert([
+                'url' => 'google.com',
+                'short' => lcfirst($faker->firstName('female')),
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_at' => \Carbon\Carbon::now(),
+            ]);
+        }
     }
 }

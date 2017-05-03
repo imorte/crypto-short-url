@@ -13,6 +13,11 @@ use Illuminate\Http\Request;
  */
 class UrlController extends Controller
 {
+    private $premium = [
+        'http://vk.com' => 'cool_vk',
+        'http://google.com' => 'cool_google'
+    ];
+
     /**
      * @param UrlRequest|Request $request
      * @return string
@@ -23,6 +28,10 @@ class UrlController extends Controller
 
         $id = Url::create($input)->id;
         $shortLink = (new Hash())->hash($id);
+        if(in_array($shortLink, array_values($this->premium))) {
+            return collect(['result' => false, 'message' => 'Данный uri уже занят'])
+                ->toJson();
+        }
 
         return collect(['result' => $shortLink])->toJson();
     }

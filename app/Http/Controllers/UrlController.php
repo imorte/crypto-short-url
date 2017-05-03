@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Lib\Hash;
 use App\Http\Requests\UrlRequest;
 use App\Url;
+use App\PremiumUrl;
 use Illuminate\Http\Request;
 
 /**
@@ -25,7 +26,6 @@ class UrlController extends Controller
     public function hash(UrlRequest $request)
     {
         $input = $request->all();
-
         $id = Url::create($input)->id;
         $shortLink = (new Hash())->hash($id);
         if(in_array($shortLink, array_values($this->premium))) {
@@ -40,8 +40,13 @@ class UrlController extends Controller
      * @param $short
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function redirect($short)
+    public function action($short)
     {
+        $premium = PremiumUrl::where('short', $short)->get();
+        if($premium->isNotEmpty()) {
+            return redirect($premium->first()->url);
+        }
+
         $id = (new Hash())->unhash($short);
         $url = Url::findOrFail($id)->url;
 

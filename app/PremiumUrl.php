@@ -5,21 +5,16 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Url
+ * Class PremiumUrl
  * @package App
  */
-class Url extends Model
+class PremiumUrl extends Model
 {
-    /**
-     * @var array
-     */
-    protected $guarded = [];
-
     /**
      * @param $url
      * @return string
      */
-    public function setUrlAttribute($url)
+    public function getUrlAttribute($url)
     {
         $protocol = '';
 
@@ -27,6 +22,6 @@ class Url extends Model
             $protocol = 'http://';
         }
 
-        $this->attributes['url'] = $protocol . $url;
+        return $protocol . $url;
     }
 }

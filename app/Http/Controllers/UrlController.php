@@ -7,6 +7,7 @@ use App\Http\Requests\UrlRequest;
 use App\Url;
 use App\PremiumUrl;
 use Illuminate\Http\Request;
+use function Psy\sh;
 
 /**
  * Class UrlController
@@ -42,9 +43,8 @@ class UrlController extends Controller
      */
     public function action($short)
     {
-        $premium = PremiumUrl::where('short', $short)->get();
-        if($premium->isNotEmpty()) {
-            return redirect($premium->first()->url);
+        if(in_array($short, array_values($this->premium))) {
+            return redirect(array_flip($this->premium)[$short]);
         }
 
         $id = (new Hash())->unhash($short);
